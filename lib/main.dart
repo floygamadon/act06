@@ -29,8 +29,9 @@ class _CounterWidgetState extends State<CounterWidget> {
   // Color changes based on counter value
   Color _statusColor() {
     if (_counter == 0) return Colors.red;
-    if (_counter <= 50) return Colors.orange; // yellow/orange zone
-    return Colors.green;
+    if (_counter <= 50) return Colors.orange; // yellow/orange/green zone
+    if (_counter < 100) return Colors.green;
+    return Colors.deepPurple; // LIFTOFF color
   }
 
   // Ignite (increase the fuel)
@@ -74,8 +75,11 @@ class _CounterWidgetState extends State<CounterWidget> {
               color: status, // dynamic color changes
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
               child: Text(
-                '$_counter',
-                style: const TextStyle(fontSize: 50.0),
+                _counter == 100 ? "LIFTOFF!" : '$_counter',
+                style: const TextStyle(fontSize: 50.0,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
@@ -85,7 +89,7 @@ class _CounterWidgetState extends State<CounterWidget> {
             value: _counter.toDouble(),
             onChanged: (double value) {
               setState(() {
-                _counter = value.toInt();
+                _counter = value.toInt().clamp(0, 100);
               });
             },
             activeColor: Colors.blue,
