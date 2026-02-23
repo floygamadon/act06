@@ -26,6 +26,13 @@ class _CounterWidgetState extends State<CounterWidget> {
   // set counter value
   int _counter = 0;
 
+  void _ignite() {
+    setState(() {
+      // increment by 1 (keep within 0..100)
+      if (_counter < 100) _counter++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +62,11 @@ class _CounterWidgetState extends State<CounterWidget> {
             },
             activeColor: Colors.blue,
             inactiveColor: Colors.red,
+          ),
+                    // Ignite button below the slider
+          ElevatedButton(
+            onPressed: _ignite,
+            child: const Text('Ignite'),
           ),
         ],
       ),
