@@ -26,12 +26,30 @@ class _CounterWidgetState extends State<CounterWidget> {
   // set counter value
   int _counter = 0;
 
+  // Ignite (increase the fuel)
   void _ignite() {
     setState(() {
       // increment by 1 (keep within 0..100)
       if (_counter < 100) _counter++;
     });
   }
+
+  // Decrement (decrease fuel safely)
+  void _decrement() {
+    setState(() {
+      if (_counter > 0) {
+        _counter--;
+      }
+    });
+  }
+
+  // Reset (abort mission)
+  void _reset() {
+    setState(() {
+      _counter = 0;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -63,10 +81,34 @@ class _CounterWidgetState extends State<CounterWidget> {
             activeColor: Colors.blue,
             inactiveColor: Colors.red,
           ),
-                    // Ignite button below the slider
+
+          const SizedBox(height: 20),
+
+          // Ignite button
           ElevatedButton(
             onPressed: _ignite,
             child: const Text('Ignite'),
+          ),
+          const SizedBox(height: 10),
+
+          // Decrement Button
+          ElevatedButton(
+            onPressed: _decrement,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.orange,
+            ),
+            child: const Text('Decrement'),
+          ),
+
+          const SizedBox(height: 10),
+
+          // Reset Button
+          ElevatedButton(
+            onPressed: _reset,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+            ),
+            child: const Text('Reset'),
           ),
         ],
       ),
