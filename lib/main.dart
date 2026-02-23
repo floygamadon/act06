@@ -26,6 +26,13 @@ class _CounterWidgetState extends State<CounterWidget> {
   // set counter value
   int _counter = 0;
 
+  // Color changes based on counter value
+  Color _statusColor() {
+    if (_counter == 0) return Colors.red;
+    if (_counter <= 50) return Colors.orange; // yellow/orange zone
+    return Colors.green;
+  }
+
   // Ignite (increase the fuel)
   void _ignite() {
     setState(() {
@@ -53,6 +60,8 @@ class _CounterWidgetState extends State<CounterWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final Color status = _statusColor();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Rocket Launch Controller'),
@@ -62,7 +71,8 @@ class _CounterWidgetState extends State<CounterWidget> {
         children: [
           Center(
             child: Container(
-              color: Colors.blue,
+              color: status, // dynamic color changes
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
               child: Text(
                 '$_counter',
                 style: const TextStyle(fontSize: 50.0),
